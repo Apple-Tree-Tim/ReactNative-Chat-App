@@ -1,8 +1,8 @@
- import { StyleSheet, Text, View ,TouchableOpacity, AsyncStorage } from 'react-native'
+ import { StyleSheet, Text, View ,TouchableOpacity, AsyncStorage ,Image } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import {signOut} from "firebase/auth";
 import {game ,db} from '../firebase/firebaseConfig';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { GiftedChat  , Bubble , InputToolbar , Send} from 'react-native-gifted-chat';
 import { addDoc, collection ,doc, setDoc , updateDoc , serverTimestamp , getDocs,query, orderBy , onSnapshot } from "firebase/firestore"; 
 import { async } from '@firebase/util';
 
@@ -45,32 +45,6 @@ const ChatScreen = ({user,route}) => {
 
       setMessages(data);
     });
-
-
-
-    // const q = query(collection(db, "chatroom" , docid , "messages"), orderBy("createdAt","desc"));
-    
-    //         onSnapshot(q, (querySnapshot) => {
-    
-    //   const a = querySnapshot.docChanges().map(docSnap => {
-    //   const  data =  docSnap.doc.data()
-       
-    //     return {
-    //        ...docSnap.doc.data(),
-    //        createdAt:docSnap.doc.data().createdAt.toDate()
-    //    }
-      
-    //   });
-    //   console.log(a)
-    //   setMessages(a)    
-    // });
-            
-    
-  
-          
-        
-
-    
   }, [])
 
   // useEffect(() => {
@@ -94,41 +68,70 @@ const ChatScreen = ({user,route}) => {
         ...msg,
         sentBy:user.uid,
         sentTo:uid, 
-        // createdAt: new Date()
+        
     }
    setMessages(previousMessages => GiftedChat.append(previousMessages,mymsg))
 
     const docid = uid > user.uid ? user.uid+ "-" + uid : uid+"-" +user.uid
-    //    addDoc(collection(db, "chatroom" ), {
-    //   mymsg
-    // });
-    // setDoc(doc(db, docid), mymsg);
-    // addDoc(collection(db, "cities"), mymsg);
+   
 
-    // Add a new document with a generated id
- const direction = collection(db, "chatroom",docid,"messages");
-
-// // // later...
-//   setDoc(direction, {...mymsg});
-
-  // setDoc(doc(collection(db, "chatroom",docid,"messages")), {...mymsg})
+    // Add a new document with a generated id  
     addDoc(collection(db, "chatroom",docid,"messages"), {...mymsg });
-  
-
-
-  
-
-
-     
   }
+
+
   return (
-    <View style={{flex:1}}>
+    <View style={{flex:1, backgroundColor:"#e5e8a2"}}>
     <GiftedChat
                 messages={messages}
                 onSend={text => onSend(text)}
                 user={{
                     _id: user.uid,
                 }}
+                renderBubble = {(props) => {
+                  return (
+                   
+                    <Bubble
+                      {...props}
+                      wrapperStyle={{
+                       
+                        right: {
+                          backgroundColor: "#c4a53e",
+                        },
+                        left: {
+                          backgroundColor: "#e5e8a2",
+                          
+                        }
+                        
+                      }}
+                    />
+                    
+                  )}}
+                  renderInputToolbar ={(props) =>{
+                    // Here you will return your custom InputToolbar.js file you copied before and include with your stylings, edits.
+                    return <InputToolbar {...props} containerStyle={{borderWidth: 2, borderColor : "#c4a53e" , borderRadius:20,  marginBottom:1}} />
+                    
+               }}
+               renderSend = {(props) => {
+                return (
+                  <Send
+                      {...props}
+                      containerStyle={{
+                        // height: 50,
+                        // width: 50,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}
+                  >
+                      <View style={{marginRight: 10, marginBottom: 0}}>
+                          <Image style={{height:40, width: 40 , backgroundColor:"white"}} source={require('../assests/send1.jpg')} resizeMode={'center'}/>
+                      </View>
+                  </Send>
+              );
+                       
+                
+              
+            }}
                
                       
                     
@@ -143,3 +146,6 @@ const ChatScreen = ({user,route}) => {
 export default ChatScreen
 
 const styles = StyleSheet.create({})
+
+
+///chatroom/0ao82pm3QYhonPouanv67c5Qdri2-4eBTN50viidLn3UuEW5guKNFSSo1

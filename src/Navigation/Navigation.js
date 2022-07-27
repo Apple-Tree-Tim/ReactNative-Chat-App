@@ -51,7 +51,7 @@ const Navigation = () => {
           {props => <Chathome {...props} user={user} />}
          </Stack.Screen>
 
-         <Stack.Screen name="Chat" options={({ route }) => ({ title: route.params.name })} >
+         <Stack.Screen name="Chat"  options={ ({ route }) => ({ title: route.params.name , headerStyle:{backgroundColor:"#e5e8a2"} })} >
 
           {props => <ChatScreen {...props} user={user}/>}
          </Stack.Screen>
