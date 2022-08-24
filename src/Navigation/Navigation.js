@@ -39,7 +39,7 @@ const Navigation = () => {
        <Stack.Screen name="Chathome" options={{
           title: 'ChatMate',
           headerStyle: {
-            backgroundColor: '#e5e8a2',
+            backgroundColor: 'white',
             
           },
           headerRight:()=><Icon
@@ -51,7 +51,7 @@ const Navigation = () => {
           {props => <Chathome {...props} user={user} />}
          </Stack.Screen>
 
-         <Stack.Screen name="Chat"  options={ ({ route }) => ({ title: route.params.name , headerStyle:{backgroundColor:"#e5e8a2"} })} >
+         <Stack.Screen name="Chat"  options={ ({ route }) => ({ title: route.params.name , headerStyle:{backgroundColor:"white"} })} >
 
           {props => <ChatScreen {...props} user={user}/>}
          </Stack.Screen>

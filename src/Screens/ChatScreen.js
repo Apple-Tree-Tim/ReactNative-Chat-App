@@ -81,7 +81,7 @@ const ChatScreen = ({user,route}) => {
 
 
   return (
-    <View style={{flex:1, backgroundColor:"#e5e8a2"}}>
+    <View style={{flex:1, backgroundColor:"white"}}>
     <GiftedChat
                 messages={messages}
                 onSend={text => onSend(text)}
@@ -97,9 +97,13 @@ const ChatScreen = ({user,route}) => {
                        
                         right: {
                           backgroundColor: "#c4a53e",
+                          marginRight:10
                         },
                         left: {
                           backgroundColor: "#e5e8a2",
+                          marginRight:30,
+                          marginLeft:-32
+                          
                           
                         }
                         
