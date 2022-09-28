@@ -54,7 +54,7 @@ const Chathome = ({user,navigation}) => {
 
       const userSignout = () =>{
         signOut(game).then(() => {
-          // Sign-out successful.
+          // Sign-out successful
         }).catch((error) => {
           // An error happened.
         });
